@@ -1,0 +1,18 @@
+{
+  "name": "GuestBook",
+  "description": "GuestBook",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Lutenko",
+      "email": "lamprologus.ua@gmail.com"
+    }
+  ],
+
+  "autoload": {
+    "psr-4": {
+      "Core\\": "Core/",
+      "App\\": "App/"
+    }
+  }
+}
