@@ -45,15 +45,18 @@ class Post extends Model
     }
 
 
-    // TODO Make a universal function instead of three
-
     /**
      * Get all posts
+     * @param string $requestParameters
      * @return bool or array
      */
-    public function getAllPost()
+    public function getAllPost($requestParameters = "")
     {
+
         $sql = "SELECT * FROM {$this->tableName}";
+        if (trim($requestParameters)) {
+            $sql .= $requestParameters;
+        }
         $this->sql($sql);
         $posts = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
         return !empty($posts) ? $posts : false;
@@ -65,10 +68,7 @@ class Post extends Model
      */
     public function getAllPostInPublished()
     {
-        $sql = "SELECT * FROM {$this->tableName} WHERE  is_published =" . IS_PUBLISHED;
-        $this->sql($sql);
-        $posts = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-        return !empty($posts) ? $posts : false;
+        return $this->getAllPost(" WHERE  is_published = " . IS_PUBLISHED);
     }
 
     /**
@@ -77,10 +77,7 @@ class Post extends Model
      */
     public function getAllPostNotPublished()
     {
-        $sql = "SELECT * FROM {$this->tableName} WHERE  is_published <>" . IS_PUBLISHED;
-        $this->sql($sql);
-        $posts = $this->stmt->fetchAll(PDO::FETCH_ASSOC);
-        return !empty($posts) ? $posts : false;
+        return $this->getAllPost(" WHERE  is_published <> " . IS_PUBLISHED);
     }
 
     /**
